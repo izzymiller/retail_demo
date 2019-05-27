@@ -3,7 +3,7 @@ view: cast_crew {
   derived_table: {
     sql: select * from `lookerdata.mak_movies.cast_crew`
     where category not in ("director", "writer");;
-    datagroup_trigger: mak_datagroup
+    datagroup_trigger: movies_datagroup
   }
 
 # VISIBLE

@@ -1,16 +1,16 @@
-connection: "lookerdata_standard_sql"
+connection: "lookerdata_publicdata_standard_sql"
 
 include: "*.view"
 
-datagroup: mak_datagroup {
+datagroup: movies_datagroup {
   max_cache_age: "1 hour"
   sql_trigger: SELECT CURDATE() ;;
 }
 
-persist_with: mak_datagroup
+persist_with: movies_datagroup
 
 explore: movies{
-  persist_with: mak_datagroup
+  persist_with: movies_datagroup
 #   extends: [custom_functions]
 
   always_filter: {
@@ -121,7 +121,7 @@ explore: movies{
 }
 
 # explore: custom_functions {
-#   persist_with: mak_datagroup
+#   persist_with: movies_datagroup
 #   extension: required
 #   sql_preamble:
 #

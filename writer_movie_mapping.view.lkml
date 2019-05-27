@@ -6,7 +6,7 @@ view: writer_movie_mapping {
           on movies.imdbid = writers.movie_id
           group by 1,2
           ;;
-    datagroup_trigger: mak_datagroup
+    datagroup_trigger: movies_datagroup
   }
 
   dimension: imdbid {}

@@ -12,7 +12,7 @@ view: countries {
           on sub.id = `lookerdata.mak_movies.country_codes`.id
           order by row_id
        ;;
-      datagroup_trigger: mak_datagroup
+      datagroup_trigger: movies_datagroup
   }
 
   dimension: row_id {

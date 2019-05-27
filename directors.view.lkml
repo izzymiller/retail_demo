@@ -15,7 +15,7 @@ view: directors {
       on directors.director_id = names.nconst
       group by 2,3,4,5
        ;;
-      datagroup_trigger: mak_datagroup
+      datagroup_trigger: movies_datagroup
   }
 
   dimension: prim_key {
