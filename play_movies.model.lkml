@@ -1,6 +1,7 @@
 connection: "lookerdata_publicdata_standard_sql"
 
 include: "*.view"
+include: "*.dashboard"
 
 datagroup: movies_datagroup {
   max_cache_age: "1 hour"
