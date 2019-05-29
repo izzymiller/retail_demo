@@ -11,13 +11,9 @@ view: production_companies {
 # VISIBLE
 
   dimension: production_company {
+    view_label: "Movies"
     type: string
     sql: ${TABLE}.production_company ;;
-  }
-
-  measure: count {
-    type: count
-    drill_fields: [movies.title, production_company]
   }
 
 # INVISBLE
@@ -27,6 +23,12 @@ view: production_companies {
     type: number
     value_format_name: id
     sql: ${TABLE}.movieid ;;
+  }
+
+  measure: count {
+    hidden: yes
+    type: count
+    drill_fields: [movies.title, production_company]
   }
 
 }

@@ -10,48 +10,17 @@ datagroup: movies_datagroup {
 
 persist_with: movies_datagroup
 
-explore: movies{
+explore: movies {
   persist_with: movies_datagroup
-#   extends: [custom_functions]
 
-  always_filter: {
-    filters: {
-      field: title_type.title_type
-      value: "movie"
-    }
-    filters: {
-      field: imdb_ratings.vote_count
-      value: "> 5000"
-    }
-    filters: {
-      field: movies.vote_count
-      value: ">1000"
-    }
-  }
-
-  sql_always_where: ${movies.title} is not null and ${movies.status} = "Released";;
-  join: keywords {
-    sql_on: ${movies.id} = ${keywords.movieid} ;;
-    relationship: one_to_many
-    type: left_outer
-  }
+  sql_always_where: ${movies.title} is not null
+                    and ${movies.status} = "Released"
+                    and ${title_type.title_type} = "movie";;
 
   join: genres {
     sql_on: ${movies.id} = ${genres.movieid} ;;
     relationship: one_to_many
     type: left_outer
-  }
-
-  join: countries {
-    sql_on: ${movies.id} = ${countries.movieid} ;;
-    relationship: many_to_one
-    type: left_outer
-  }
-
-  join: spoken_languages {
-    sql_on: ${movies.id} = ${spoken_languages.movieid} ;;
-    relationship: one_to_many
-    type: full_outer
   }
 
   join: collections {
@@ -78,12 +47,6 @@ explore: movies{
     type: left_outer
   }
 
-  join: writers {
-    sql_on: ${movies.imdbid} = ${writers.movie_id} ;;
-    relationship: many_to_many
-    type: left_outer
-  }
-
   join: imdb_ratings {
     sql_on: ${movies.imdbid} = ${imdb_ratings.tconst} ;;
     relationship: one_to_one
@@ -97,23 +60,47 @@ explore: movies{
     fields: [title_type.title_type]
   }
 
-  join: cast_crew {
-    sql_on: ${movies.imdbid} = ${cast_crew.tconst} ;;
-    relationship: many_to_many
-    fields: [cast_crew.job]
-  }
-
-  join: names {
-    sql_on: ${cast_crew.nconst} = ${names.nconst};;
-    relationship: one_to_one
-    fields: [names.name, names.nconst, names.birth_year, names.death_year, names.count]
-  }
-
-  join: ratings_tier {
-    sql_on: ${movies.imdbid} = ${ratings_tier.movieid} ;;
-    relationship: one_to_one
-    type: left_outer
-  }
+#   join: keywords {
+#     sql_on: ${movies.id} = ${keywords.movieid} ;;
+#     relationship: one_to_many
+#     type: left_outer
+#   }
+#
+#   join: countries {
+#     sql_on: ${movies.id} = ${countries.movieid} ;;
+#     relationship: many_to_one
+#     type: left_outer
+#   }
+#
+#   join: spoken_languages {
+#     sql_on: ${movies.id} = ${spoken_languages.movieid} ;;
+#     relationship: one_to_many
+#     type: full_outer
+#   }
+#
+#   join: writers {
+#     sql_on: ${movies.imdbid} = ${writers.movie_id} ;;
+#     relationship: many_to_many
+#     type: left_outer
+#   }
+#
+#   join: cast_crew {
+#     sql_on: ${movies.imdbid} = ${cast_crew.tconst} ;;
+#     relationship: one_to_many
+#     fields: [cast_crew.job]
+#   }
+#
+#   join: names {
+#     sql_on: ${cast_crew.nconst} = ${names.nconst};;
+#     relationship: one_to_one
+#     fields: [names.name, names.nconst, names.birth_year, names.death_year, names.count]
+#   }
+#
+#   join: ratings_tier {
+#     sql_on: ${movies.imdbid} = ${ratings_tier.movieid} ;;
+#     relationship: one_to_one
+#     type: left_outer
+#   }
 
 #   join: topn {
 #     sql_on: ${directors.name} = ${topn.name} ;;

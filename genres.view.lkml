@@ -1,5 +1,6 @@
 view: genres {
   sql_table_name: mak_movies.genres ;;
+  view_label: "Movies"
 
   dimension: id {
     primary_key: yes
@@ -16,6 +17,7 @@ view: genres {
   }
 
   measure: count {
+    hidden: yes
     type: count
     drill_fields: [movies.title, genre]
   }

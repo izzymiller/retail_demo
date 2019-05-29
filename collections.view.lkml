@@ -1,5 +1,6 @@
 view: collections {
   sql_table_name: mak_movies.collections ;;
+  view_label: "Movies"
 
   dimension: id {
     primary_key: yes
@@ -15,12 +16,6 @@ view: collections {
     sql: rtrim(${TABLE}.collection, "Collection") ;;
   }
 
-
-  measure: count {
-    type: count
-    drill_fields: [movies.title, collection]
-  }
-
 # INVISIBLE
 
   dimension: movieid {
@@ -28,6 +23,12 @@ view: collections {
     type: number
     value_format_name: id
     sql: ${TABLE}.movieid ;;
+  }
+
+  measure: count {
+    hidden: yes
+    type: count
+    drill_fields: [movies.title, collection]
   }
 
 }

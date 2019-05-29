@@ -31,6 +31,7 @@ view: movies {
   }
 
   dimension: budget_category {
+    description: "Ultra Low budget < $10,000,000, High Budget < $100,000,000"
     case: {
       when: {
         sql: ${budget} < 10000000;;
@@ -49,11 +50,13 @@ view: movies {
   }
 
   dimension: original_language {
+    hidden: yes
     type: string
     sql: ${TABLE}.original_language ;;
   }
 
   dimension: original_title {
+    hidden: yes
     type: string
     sql: ${TABLE}.original_title ;;
   }
@@ -84,22 +87,23 @@ view: movies {
     sql: ${release_year} ;;
   }
 
-  dimension: 5_years {
-    type: tier
-    tiers: [1910,1915,1920,1925,1930,1935,1940,1945,1950,1955,1960,1965,1970,1975,1980,1985,1990,1995,2000,2005,2010,2015]
-    style: integer
-    sql: ${release_year} ;;
-  }
+#   dimension: 5_years {
+#     type: tier
+#     tiers: [1910,1915,1920,1925,1930,1935,1940,1945,1950,1955,1960,1965,1970,1975,1980,1985,1990,1995,2000,2005,2010,2015]
+#     style: integer
+#     sql: ${release_year} ;;
+#   }
 
 
   dimension: revenue {
+    hidden: yes
     type: number
     sql: ${TABLE}.revenue ;;
     value_format_name: usd
   }
 
   dimension: runtime {
-    description: "In Minutes"
+    description: "Runtime In Minutes"
     type: number
     sql: ${TABLE}.runtime ;;
   }
@@ -139,6 +143,7 @@ view: movies {
   }
 
   dimension: title_dropdown {
+    hidden: yes
     type: string
     sql: ${title} ;;
     link: {
@@ -166,12 +171,14 @@ view: movies {
 
 
   dimension: popularity {
+    hidden: yes
     type: number
     sql: ${TABLE}.popularity ;;
     value_format_name: decimal_2
   }
 
-  dimension: popularity_tier{
+  dimension: popularity_tier {
+    hidden: yes
     type: tier
     tiers: [0,5,10,15,20,25,30,35,40,45,50,100,150,200,250,300,350,400,450,500,550]
     style: interval
@@ -179,8 +186,8 @@ view: movies {
   }
 
   dimension: vote_count {
+    hidden: yes
     label: "TMDb Vote Count"
-    view_label: "Ratings"
     type: number
     sql: ${TABLE}.vote_count ;;
   }
@@ -221,40 +228,40 @@ view: movies {
     drill_fields: [title, average_runtime]
   }
 
-  parameter: metric_selector {
-    description: "Use with Metric measure"
-    type: string
-    allowed_value: {
-      value: "total_revenue"
-      label: "Total Revenue"
-    }
-    allowed_value: {
-      value: "average_revenue"
-      label: "Average Revenue"
-    }
-    allowed_value: {
-      value: "Average Budget"
-    }
-  }
+#   parameter: metric_selector {
+#     description: "Use with Metric measure"
+#     type: string
+#     allowed_value: {
+#       value: "total_revenue"
+#       label: "Total Revenue"
+#     }
+#     allowed_value: {
+#       value: "average_revenue"
+#       label: "Average Revenue"
+#     }
+#     allowed_value: {
+#       value: "Average Budget"
+#     }
+#   }
 
-  measure: metric {
-    description: "Use with Metric Selector"
-    label_from_parameter: metric_selector
-    type: number
-    value_format_name: usd
-    sql:
-      CASE
-      WHEN {% parameter metric_selector %} = 'average_budget' THEN
-          ${movies.average_budget}
-        WHEN {% parameter metric_selector %} = 'average_revenue' THEN
-          ${average_revenue}
-          WHEN {% parameter metric_selector %} = 'total_revenue' THEN
-          ${movies.total_revenue}
-        ELSE
-          NULL
-      END ;;
-    drill_fields: [title, metric]
-  }
+#   measure: metric {
+#     description: "Use with Metric Selector"
+#     label_from_parameter: metric_selector
+#     type: number
+#     value_format_name: usd
+#     sql:
+#       CASE
+#       WHEN {% parameter metric_selector %} = 'average_budget' THEN
+#           ${movies.average_budget}
+#         WHEN {% parameter metric_selector %} = 'average_revenue' THEN
+#           ${average_revenue}
+#           WHEN {% parameter metric_selector %} = 'total_revenue' THEN
+#           ${movies.total_revenue}
+#         ELSE
+#           NULL
+#       END ;;
+#     drill_fields: [title, metric]
+#   }
 
 
 # INVISIBLE

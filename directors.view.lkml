@@ -149,12 +149,12 @@ view: directors {
 #   }
 
 
-  measure: top_5_directors {
-    description: "Top 5 Directors Based on Average IMDB Rating"
-    type: string
-    sql: pairs_sum_top_n(ARRAY_AGG(STRUCT(${name} as key, ${ratings_tier.rating} as value)), 5) ;;
-    drill_fields: [directors.name, imdb_ratings.avg_rating]
-  }
+#   measure: top_5_directors {
+#     description: "Top 5 Directors Based on Average IMDB Rating"
+#     type: string
+#     sql: pairs_sum_top_n(ARRAY_AGG(STRUCT(${name} as key, ${ratings_tier.rating} as value)), 5) ;;
+#     drill_fields: [directors.name, imdb_ratings.avg_rating]
+#   }
 
 # INVISIBLE
 
