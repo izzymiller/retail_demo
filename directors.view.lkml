@@ -38,6 +38,7 @@ view: directors {
   }
 
   dimension_group: first_movie {
+    hidden: yes
     type: time
     timeframes: [
       raw,
@@ -54,6 +55,7 @@ view: directors {
   }
 
   dimension: current_years_active {
+    label: "Years Active"
     type: number
     sql: case when
     ${death_year} is null then
@@ -61,12 +63,22 @@ view: directors {
     else cast(${death_year} as int64) - ${first_movie_year} end;;
   }
 
+  measure: count {
+    label: "Number of Directors"
+    type: count
+    drill_fields: [directors.name, movies.title]
+  }
+
+# INVISIBLE
+
   dimension: years_active {
+    hidden: yes
     type: number
     sql: ${movies.release_year} - extract(year from ${first_movie_date});;
   }
 
   dimension: current_years_active_tier {
+    hidden: yes
     type: tier
     tiers: [10,20,30,40,50,60,70,80]
     style: integer
@@ -77,6 +89,7 @@ view: directors {
   }
 
   dimension: years_active_tier {
+    hidden: yes
     type: tier
     tiers: [5,10,15,20,25,30,35,40,45]
     style: integer
@@ -84,21 +97,25 @@ view: directors {
   }
 
   dimension: birth_year {
+    hidden: yes
     type: number
     sql: ${TABLE}.birth_year;;
     }
 
   dimension: death_year {
+    hidden: yes
     type: number
     sql: ${TABLE}.death_year;;
   }
 
   dimension: age {
+    hidden: yes
     type: number
     sql: ${movies.release_year} - cast(${birth_year} as int64) ;;
   }
 
   dimension: current_age {
+    hidden: yes
     type: number
     sql: case when
     ${death_year} is null then
@@ -107,6 +124,7 @@ view: directors {
   }
 
   dimension: current_age_tier {
+    hidden: yes
     type: tier
     tiers: [20,30,40,50,60,70,80,90,100]
     style: integer
@@ -114,49 +132,18 @@ view: directors {
   }
 
   dimension: age_tier {
+    hidden: yes
     type: tier
     tiers: [20,30,40,50,60,70,80,90,100]
     style: integer
     sql: ${age} ;;
   }
 
-#   dimension: selfwritten {
-#     sql: ${TABLE}.selfwritten ;;
-#   }
-
-#   measure: selfwritten {
-#     type: yesno
-#     sql: STRING_AGG(${writers.name}, '|RECORD|') like CONCAT('%', ${directors.name}, '%') ;;
-#   }
-
-  measure: count {
-    type: count
-    drill_fields: [directors.name, movies.title]
-  }
-
   measure: average_age {
+    hidden: yes
     type: average
     sql: ${age} ;;
   }
-
-#   parameter: selfwritten_select {
-#     type: string
-#   }
-#
-#   measure: selfwritten_flag {
-#     type: number
-#     sql:  (case when cast(${selfwritten} as string) = "Yes" then 1 else 0 end) ;;
-#   }
-
-
-#   measure: top_5_directors {
-#     description: "Top 5 Directors Based on Average IMDB Rating"
-#     type: string
-#     sql: pairs_sum_top_n(ARRAY_AGG(STRUCT(${name} as key, ${ratings_tier.rating} as value)), 5) ;;
-#     drill_fields: [directors.name, imdb_ratings.avg_rating]
-#   }
-
-# INVISIBLE
 
   dimension: director_id {
     hidden: yes
