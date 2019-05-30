@@ -28,6 +28,7 @@ view: directors {
 # VISIBLE
 
   dimension: name {
+    label: "Director Name"
     type: string
     sql: ${TABLE}.director ;;
     link: {
@@ -50,12 +51,14 @@ view: directors {
   }
 
   dimension: is_first_movie {
+    description: "Is the director's first movie released"
     type: yesno
     sql: ${movies.release_year} = ${first_movie_year};;
   }
 
   dimension: current_years_active {
     label: "Years Active"
+    description: "Number of years that a director has been active"
     type: number
     sql: case when
     ${death_year} is null then
