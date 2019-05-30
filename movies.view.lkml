@@ -9,6 +9,7 @@ view: movies {
   }
 
   measure: count_movies {
+    label: "Number of Movies"
     type: count_distinct
     sql: ${title} ;;
     drill_fields: [title]
