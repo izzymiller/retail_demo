@@ -12,6 +12,7 @@ view: collections {
 # VISIBLE
 
   dimension: collection {
+    label: "Franchise"
     type: string
     sql: rtrim(${TABLE}.collection, "Collection") ;;
   }
