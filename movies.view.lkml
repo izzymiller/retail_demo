@@ -145,7 +145,7 @@ view: movies {
   }
 
   measure: average_popularity {
-    description: "TMDb Average Popularity Score"
+    description: "TMDb Average Popularity Score, which uses an open-ended scale and is based on number of votes, number of views, number of users who marked it as a favourite, number of users who added it to their watchlist, and release date"
     type: average
     sql: ${popularity} ;;
     value_format_name: decimal_2
