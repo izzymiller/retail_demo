@@ -9,8 +9,14 @@ datagroup: movies_datagroup {
 
 persist_with: movies_datagroup
 
+
+
+datagroup: embedded_visualization_datagroup {
+  max_cache_age: "10000 hours"
+}
+
 explore: movies {
-  persist_with: movies_datagroup
+  persist_with: embedded_visualization_datagroup
 
   sql_always_where: ${movies.title} is not null
                     and ${movies.status} = "Released"
