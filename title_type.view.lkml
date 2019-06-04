@@ -4,6 +4,7 @@ view: title_type {
 # VISIBILE
 
   dimension: title_type {
+    hidden: yes
     view_label: "Movies"
     type: string
     sql: ${TABLE}.title_type ;;
