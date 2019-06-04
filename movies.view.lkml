@@ -12,7 +12,7 @@ view: movies {
     label: "Number of Movies"
     type: count_distinct
     sql: ${title} ;;
-    drill_fields: [title]
+    drill_fields: [title, release_year, genres.genre, overview]
   }
 
 # VISIBLE
@@ -149,28 +149,28 @@ view: movies {
     type: average
     sql: ${popularity} ;;
     value_format_name: decimal_2
-    drill_fields: [title, average_popularity]
+    drill_fields: [title, release_year, genres.genre, average_popularity]
   }
 
   measure: average_revenue {
     type: average
     sql: ${revenue} ;;
     value_format_name: usd
-    drill_fields: [title, average_revenue]
+    drill_fields: [title, release_year, genres.genre, average_revenue]
   }
 
   measure: total_revenue {
     type: sum
     sql: ${revenue};;
     value_format_name: usd
-    drill_fields: [title, total_revenue]
+    drill_fields: [title, release_year, genres.genre, total_revenue]
   }
 
   measure: average_runtime {
     type: average
     sql: ${runtime} ;;
     value_format_name: decimal_2
-    drill_fields: [title, average_runtime]
+    drill_fields: [title, release_year, genres.genre, average_runtime]
   }
 
 

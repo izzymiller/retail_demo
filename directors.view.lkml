@@ -36,6 +36,7 @@ view: directors {
       url: "https://www.imdb.com/name/{{ ['director_id'] }}"
       icon_url: "https://imdb.com/favicon.ico"
     }
+    drill_fields: [movies.title, movies.release_year]
   }
 
   dimension_group: first_movie {
